@@ -14,7 +14,7 @@ zakladny_armor = 10.0
 zakladny_damage = 10.0
 
 # Premenné - Herné mechaniky
-zacina = 1 
+zacina = 1
 som_stunnuty = False
 
 # Premenné - AI (Nepriateľ)
@@ -98,13 +98,13 @@ def vyber_rasu(cislo_rasy):
     print(f"Vybral si si rasu: {rasa}")
     print(f"Tvoje staty sú -> HP: {zakladne_hp}, Mana: {zakladna_mana}, Damage: {zakladny_damage}, Armor: {zakladny_armor}")
 
-# --- SPELLY ---
+# --- SPELLY (Základný útok každého povolania stojí 0 many) ---
 
 # Paladin Spelly
 def divine_strike():
-    global AI_hp, zakladna_mana
+    global AI_hp
     AI_hp -= 7
-    print(f"-> Paladin použil Divine Strike: Urobil 7 damage nepriateľovi!")
+    print(f"-> Paladin použil Divine Strike (Zadarmo): Urobil 7 damage nepriateľovi!")
 
 def sacred_grace():
     global zakladne_hp, zakladna_mana
@@ -123,15 +123,14 @@ def celestial_judgement():
     AI_je_stunnute = True
     AI_hp -= 5
     zakladna_mana -= 20
-    print(f"-> Paladin použil Celestial Judgment: Urobil 5 damage a OMNIESTNIL nepriateľa (Stun)! (Mana -20)")
+    print(f"-> Paladin použil Celestial Judgment: Urobil 5 damage a omráčil nepriateľa! (Mana -20)")
 
 
 # Mage Spelly
 def lighting_strike():
-    global AI_hp, zakladna_mana
+    global AI_hp
     AI_hp -= 20
-    zakladna_mana -= 5
-    print(f"-> Mage použil Lightning Strike: Urobil 20 damage nepriateľovi! (Mana -5)")
+    print(f"-> Mage použil Lightning Strike (Zadarmo základný útok): Urobil 20 damage nepriateľovi!")
 
 def mana_regen_boost():
     global zakladna_mana
@@ -142,7 +141,7 @@ def ground_zero():
     global AI_je_stunnute, zakladna_mana
     AI_je_stunnute = True
     zakladna_mana -= 20
-    print(f"-> Mage použil Ground Zero: Omráčil nepriateľa (Stun)! (Mana -20)")
+    print(f"-> Mage použil Ground Zero: Omráčil nepriateľa! (Mana -20)")
 
 def obliteration():
     global AI_hp, zakladna_mana
@@ -153,10 +152,9 @@ def obliteration():
 
 # Knight Spelly
 def bloodlust():
-    global AI_hp, zakladna_mana
+    global AI_hp
     AI_hp -= 10
-    zakladna_mana -= 5
-    print(f"-> Knight použil Bloodlust: Zrezao nepriateľa za 10 damage! (Mana -5)")
+    print(f"-> Knight použil Bloodlust (Zadarmo): Zrezal nepriateľa za 10 damage!")
 
 def ironclad_defence():
     global zakladny_armor, zakladna_mana
@@ -168,7 +166,7 @@ def blinding_steel():
     global AI_je_stunnute, zakladna_mana
     AI_je_stunnute = True
     zakladna_mana -= 5
-    print(f"-> Knight použil Blinding Steel: Omráčil nepriateľa (Stun)! (Mana -5)")
+    print(f"-> Knight použil Blinding Steel: Omráčil nepriateľa! (Mana -5)")
 
 def undying_warrior():
     global zakladne_hp, zakladna_mana
@@ -181,35 +179,34 @@ def undying_warrior():
 def shadow_strike():
     global AI_hp, zakladna_mana
     AI_hp -= 10
-    zakladna_mana += 5
-    print(f"-> Shadow použil Shadow Strike: Urobil 10 damage a získal 5 many! (Mana +5)")
+    zakladna_mana += 5  # Dáva manu zadarmo
+    print(f"-> Shadow použil Shadow Strike (Zadarmo): Urobil 10 damage a získal 5 many! (Mana +5)")
 
 def black_smoke():
     global AI_je_stunnute, zakladna_mana
     AI_je_stunnute = True
     zakladna_mana -= 10
-    print(f"-> Shadow použil Black Smoke: Omráčil nepriateľa (Stun)! (Mana -10)")
+    print(f"-> Shadow použil Black Smoke: Omráčil nepriateľa! (Mana -10)")
 
 def teleport():
     global AI_dmg, zakladna_mana
     AI_dmg = 0
     zakladna_mana -= 5
-    print(f"-> Shadow použil Teleport: Vyhol sa útoku (AI damage na toto kolo je 0)! (Mana -5)")
+    print(f"-> Shadow použil Teleport: Vyhol sa útoku! (Mana -5)")
 
 def backstab():
     global AI_hp, AI_je_stunnute, zakladna_mana
     AI_hp -= 25
     AI_je_stunnute = True
     zakladna_mana -= 25
-    print(f"-> Shadow použil Backstab: Zasadil smrteľnú dýku za 25 damage a omráčil nepriateľa! (Mana -25)")
+    print(f"-> Shadow použil Backstab: Dnes za 25 damage a omráčil nepriateľa! (Mana -25)")
 
 
 # Mafian Boss Spelly
 def cokoladova_ferovka():
-    global AI_hp, zakladny_damage, zakladna_mana
+    global AI_hp, zakladny_damage
     AI_hp -= zakladny_damage
-    zakladna_mana -= 5
-    print(f"-> Mafian Boss použil Čokoládovú férovku: Urobil {zakladny_damage} damage! (Mana -5)")
+    print(f"-> Mafian Boss použil Čokoládovú férovku (Zadarmo): Urobil {zakladny_damage} damage!")
 
 def cls320cdi():
     global AI_dmg, zakladna_mana
@@ -222,13 +219,13 @@ def kotlar_ability():
     AI_hp -= 15
     zakladne_hp += 15
     zakladna_mana -= 10
-    print(f"-> Mafian Boss použil Kotlár ability: Urobil 15 damage a ukradol 15 HP pre seba! (Mana -10)")
+    print(f"-> Mafian Boss použil Kotlár ability: Urobil 15 damage a ukradol 15 HP! (Mana -10)")
 
 def ultina_bakhtalospecial():
     global AI_hp, zakladna_mana
     AI_hp -= 50
     zakladna_mana -= 20
-    print(f"-> Mafian Boss použil Bakhtalo Špeciál: Spôsobil obrovských 50 damage! (Mana -20)")
+    print(f"-> Mafian Boss použil Bakhtalo Špeciál: Spôsobil 50 damage! (Mana -20)")
 
 
 # Detective Spelly
@@ -239,16 +236,16 @@ def deadly_shot():
     print(f"-> Detective použil Deadly Shot: Presná trefa za 50 damage! (Mana -15)")
 
 def pistol_attack():
-    global AI_hp, zakladny_damage, zakladna_mana
+    global AI_hp, zakladny_damage
     AI_hp -= zakladny_damage
-    print(f"-> Detective použil Pistol Attack: Urobil {zakladny_damage} damage!")
+    print(f"-> Detective použil Pistol Attack (Zadarmo základný útok): Urobil {zakladny_damage} damage!")
 
 def handcuffs():
     global AI_je_stunnute, AI_hp, zakladna_mana
     AI_je_stunnute = True
     AI_hp -= 5
     zakladna_mana -= 5
-    print(f"-> Detective nasadil Handcuffs: Dal 5 damage a omráčil nepriateľa (Stun)! (Mana -5)")
+    print(f"-> Detective nasadil Handcuffs: Dal 5 damage a omráčil nepriateľa! (Mana -5)")
 
 def adrenaline_shot():
     global zakladne_hp, zakladna_mana
@@ -266,7 +263,6 @@ print(f"\nLosovanie: Kto začína? (1 = Hráč, 2 = AI) -> Padlo: {zacina}")
 print(f"Bojuješ s triedou: {trieda}\n" + "-"*50)
 
 # Hlavná herná slučka
-# Hlavná herná slučka
 while zakladne_hp > 0 and AI_hp > 0:
     # ---------------- HRÁČOV TAH ----------------
     if zacina == 1:
@@ -274,17 +270,15 @@ while zakladne_hp > 0 and AI_hp > 0:
             print(f"\n⚠️ {meno}, si OMRÁČENÝ (Stunnutý) a nemôžeš konať! Prebieha ťah AI...")
             som_stunnuty = False  # Stun vyprší po tomto kole
         else:
-            # Hráč si vyberá akciu dokým nezadá platnú akciu, na ktorú má aj manu
             while True:
                 print(f"\nTvoj ťah! (Tvoje HP: {zakladne_hp} | Mana: {zakladna_mana} | Armor: {zakladny_armor})")
                 
                 spraveny_tah = False
 
                 if trieda == "Paladin":
-                    akcia = int(input("Vyber akciu: 1. Divine Strike (Mana: 5) | 2. Sacred Grace (Mana: 15) | 3. Divine Shield (Mana: 15) | 4. Celestial Judgment (Mana: 20): "))
+                    akcia = int(input("Vyber akciu: 1. Divine Strike (Mana: 0) | 2. Sacred Grace (Mana: 15) | 3. Divine Shield (Mana: 15) | 4. Celestial Judgment (Mana: 20): "))
                     if akcia == 1:
-                        if zakladna_mana >= 5: divine_strike(); spraveny_tah = True
-                        else: print("❌ Nemáš dostatok many (potrebuješ 5)!")
+                        divine_strike(); spraveny_tah = True
                     elif akcia == 2:
                         if zakladna_mana >= 15: sacred_grace(); spraveny_tah = True
                         else: print("❌ Nemáš dostatok many (potrebuješ 15)!")
@@ -314,10 +308,9 @@ while zakladne_hp > 0 and AI_hp > 0:
                         print("Neplatná voľba!")
 
                 elif trieda == "Knight":
-                    akcia = int(input("Vyber akciu: 1. Bloodlust (Mana: 5) | 2. Ironclad Defense (Mana: 5) | 3. Blinding Steel (Mana: 5) | 4. Undying Warrior (Mana: 10): "))
+                    akcia = int(input("Vyber akciu: 1. Bloodlust (Mana: 0) | 2. Ironclad Defense (Mana: 5) | 3. Blinding Steel (Mana: 5) | 4. Undying Warrior (Mana: 10): "))
                     if akcia == 1:
-                        if zakladna_mana >= 5: bloodlust(); spraveny_tah = True
-                        else: print("❌ Nemáš dostatok many (potrebuješ 5)!")
+                        bloodlust(); spraveny_tah = True
                     elif akcia == 2:
                         if zakladna_mana >= 5: ironclad_defence(); spraveny_tah = True
                         else: print("❌ Nemáš dostatok many (potrebuješ 5)!")
@@ -331,10 +324,9 @@ while zakladne_hp > 0 and AI_hp > 0:
                         print("Neplatná voľba!")
 
                 elif trieda == "Mafian Boss":
-                    akcia = int(input("Vyber akciu: 1. Čokoládova férovka (Mana: 5) | 2. CLS320CDi (Mana: 10) | 3. Kotlár (Mana: 10) | 4. Bakhtalo Špeciál (Mana: 20): "))
+                    akcia = int(input("Vyber akciu: 1. Čokoládova férovka (Mana: 0) | 2. CLS320CDi (Mana: 10) | 3. Kotlár (Mana: 10) | 4. Bakhtalo Špeciál (Mana: 20): "))
                     if akcia == 1:
-                        if zakladna_mana >= 5: cokoladova_ferovka(); spraveny_tah = True
-                        else: print("❌ Nemáš dostatok many (potrebuješ 5)!")
+                        cokoladova_ferovka(); spraveny_tah = True
                     elif akcia == 2:
                         if zakladna_mana >= 10: cls320cdi(); spraveny_tah = True
                         else: print("❌ Nemáš dostatok many (potrebuješ 10)!")
@@ -348,10 +340,9 @@ while zakladne_hp > 0 and AI_hp > 0:
                         print("Neplatná voľba!")
 
                 elif trieda == "Mage":
-                    akcia = int(input("Vyber akciu: 1. Lightning Strike (Mana: 5) | 2. Mana Regen Boost (Mana: 5) | 3. Ground Zero (Mana: 20) | 4. Obliteration (Mana: 50): "))
+                    akcia = int(input("Vyber akciu: 1. Lightning Strike (Mana: 0) | 2. Mana Regen Boost (Mana: 5) | 3. Ground Zero (Mana: 20) | 4. Obliteration (Mana: 50): "))
                     if akcia == 1:
-                        if zakladna_mana >= 5: lighting_strike(); spraveny_tah = True
-                        else: print("❌ Nemáš dostatok many (potrebuješ 5)!")
+                        lighting_strike(); spraveny_tah = True
                     elif akcia == 2:
                         if zakladna_mana >= 5: mana_regen_boost(); spraveny_tah = True
                         else: print("❌ Nemáš dostatok many (potrebuješ 5)!")
@@ -380,7 +371,6 @@ while zakladne_hp > 0 and AI_hp > 0:
                     else: 
                         print("Neplatná voľba!")
 
-                # Ak bol spell úspešne vykonaný, vyskočíme z vnútorného while True výberu
                 if spraveny_tah:
                     break
 
@@ -389,11 +379,9 @@ while zakladne_hp > 0 and AI_hp > 0:
         AI_hp = round(max(0.0, AI_hp), 2)
         zakladna_mana = round(max(0.0, zakladna_mana), 2)
 
-        # Výpis po tvojom ťahu
         print(f"\n📊 Stav po tvojom ťahu -> Tvoje HP: {zakladne_hp} | AI HP: {AI_hp} | Tvoja Mana: {zakladna_mana}")
         print("-" * 50)
 
-        # Skontrolovanie, či AI nezomrelo
         if AI_hp <= 0:
             break
 
